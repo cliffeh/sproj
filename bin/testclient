@@ -1,0 +1,7 @@
+#!/bin/bash
+
+CLASSPATH=`find WebContent -name *.jar | xargs | tr ' ' ':'`:build/classes
+# echo $CLASSPATH
+MAIN=com.cliftonsnyder.sproj.jaxb.client.TestHelloClient
+
+java -cp ${CLASSPATH} ${MAIN}
