@@ -66,6 +66,16 @@ public enum ProjectDao {
 		return q.getResultList().size() > 0;
 	}
 
+	public Project newProject(String name, String owner, String status,
+			int urgency) {
+		Project project = new Project();
+		project.setName(name);
+		project.setOwner(owner);
+		project.setStatus(status);
+		project.setUrgency(urgency);
+		return project;
+	}
+
 	public Project putProject(Project project) {
 		em.getTransaction().begin();
 		em.persist(project);

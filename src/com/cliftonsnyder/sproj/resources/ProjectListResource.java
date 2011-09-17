@@ -56,20 +56,20 @@ public class ProjectListResource {
 	@POST
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void newProject(@FormParam("id") String id,
-			@FormParam("summary") String summary,
-			@FormParam("description") String description,
+	// name owner status urgency
+	public void newProject(@FormParam("name") String name,
+			@FormParam("owner") String owner,
+			@FormParam("status") String status,
+			@FormParam("urgency") String urgency,
 			@Context HttpServletResponse servletResponse) throws IOException {
-		// TODO catch NumberFormatExceptions
-		Project project = new Project(Integer.parseInt(id)); // , summary);
-		if (description != null) {
-			// Project.setDescription(description);
-		}
+		Project project = ProjectDao.instance.newProject(name, owner, status,
+				Integer.parseInt(urgency));
 		ProjectDao.instance.putProject(project);
-
-		URI uri = uriInfo.getAbsolutePathBuilder().path(id).build();
-		Response.created(uri).build();
-
-		servletResponse.sendRedirect("../create_Project.html");
+		servletResponse.sendRedirect("/sproj/");
+		//
+		// URI uri = uriInfo.getAbsolutePathBuilder().path(id).build();
+		// Response.created(uri).build();
+		//
+		// servletResponse.sendRedirect("../create_Project.html");
 	}
 }

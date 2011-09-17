@@ -1,0 +1,38 @@
+html,body,div {
+	font-family: verdana;
+}
+
+#projects .project .id {
+	background-color: lightyellow;
+}
+
+#projects .project .name {
+	
+}
+
+#projects .project .owner {
+	background-color: lightyellow;
+}
+
+#projects .project .status {
+	
+}
+
+#projects .project .urgency {
+	background-color: lightyellow;
+}
+
+#addProject {
+	margin-top: 20px;
+}
+
+#addProject #addButton {
+	-webkit-border-radius: 2px;
+	color: #666;
+	background-color: whiteSmoke;
+	border: 1px solid gray;
+}
+
+#addProject #addProjectFields {
+	visibility: hidden;
+}
