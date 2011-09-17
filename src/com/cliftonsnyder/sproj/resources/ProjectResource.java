@@ -44,9 +44,10 @@ public class ProjectResource {
 	@GET
 	@Produces( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Project getProject() {
-		Project proj = ProjectDao.instance.getModel().get(id);
+		Project proj = ProjectDao.instance.getProject(Integer.parseInt(id));
 		if (proj == null)
-			throw new RuntimeException("Get: Project with " + id + " not found");
+			throw new RuntimeException("Get: Project with id '" + id
+					+ "' not found");
 		return proj;
 	}
 
@@ -54,35 +55,36 @@ public class ProjectResource {
 	@GET
 	@Produces(MediaType.TEXT_XML)
 	public Project getProjectHTML() {
-		Project proj = ProjectDao.instance.getModel().get(id);
+		Project proj = ProjectDao.instance.getProject(Integer.parseInt(id));
 		if (proj == null)
-			throw new RuntimeException("Get: Project with " + id + " not found");
+			throw new RuntimeException("Get: Project with id '" + id
+					+ "' not found");
 		return proj;
 	}
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_XML)
-	public Response putProject(JAXBElement<Project> todo) {
-		Project c = todo.getValue();
+	public Response putProject(JAXBElement<Project> el) {
+		Project c = el.getValue();
 		return putAndGetResponse(c);
 	}
 
 	@DELETE
 	public void deleteProject() {
-		Project c = ProjectDao.instance.getModel().remove(id);
+		Project c = ProjectDao.instance.removeProject(Integer.parseInt(id));
 		if (c == null)
 			throw new RuntimeException("Delete: Project with " + id
 					+ " not found");
 	}
 
-	private Response putAndGetResponse(Project proj) {
+	private Response putAndGetResponse(Project project) {
 		Response res;
-		if (ProjectDao.instance.getModel().containsKey(proj.getId())) {
+		if (ProjectDao.instance.hasProject(project.getId())) {
 			res = Response.noContent().build();
 		} else {
 			res = Response.created(uriInfo.getAbsolutePath()).build();
 		}
-		ProjectDao.instance.getModel().put("" + proj.getId(), proj);
+		ProjectDao.instance.putProject(project);
 		return res;
 	}
 

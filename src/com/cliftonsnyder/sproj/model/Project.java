@@ -4,16 +4,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 @XmlRootElement
-@Entity
+@Entity(name = "project")
+@Table(name = "project")
 public class Project {
+
+	public static final int URG_OKAY = 0;
+	public static final int URG_URGENT = 1;
+	public static final int URG_CRITICAL = 2;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	int id;
+
 	private String name;
 	private String owner;
 	private String status;
